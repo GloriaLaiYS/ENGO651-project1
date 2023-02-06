@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+     <!-- My CSS -->
+    <link rel="stylesheet" href="static/styles.css">
+    <title>Book Details and Review</title>
+
+</head>
+<body>
+    <div id="toc">You have logged in as: {{ username }}<br/>
+        <a href="{{ url_for('logout') }}" role="button"> Log out here </a>
+    </div>  
+<div id="sta"> 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<div id="al">
+    <a href="{{url_for('search')}}"><h4> Back to search more </h4></a>
+    <h2>
+        <form action="/search" method="post">
+            <input type="text" name="content" placeholder="Search books here" Required>
+            <input type="submit" value="Search"><br><br>
+        </form>
+    </h2>
+</div>
+
+<div id="toc">
+<ul>
+    <h4>{{content[0].title}}</h4>
+    Author: {{content[0].author}}
+    ISBN Number: {{content[0].isbn}}
+    Publish Year: {{content[0].year}}
+</div>
+
+<div id="middle">
+    <form method="post">
+        <label>Rating</label>
+        <select name="rate">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option selected value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br><br>
+
+            <label>Comment</label><br>
+            <textarea name="Please comment here."></textarea>
+            <input type="submit" value="Search"><br><br>
+
+    </form>
+</div>
+<div id="middle">
+    <h3>Users' Reviews</h3>
+    {% for review in reviews %}
+    <div >
+        <p><h6>{{review.username}} said:</h6>{{review.comment}}</p>
+        <small>Rated: {{review.rating}}</small>
+    </div>
+    {% endfor %}
+    <br><br><br>
+</div>
+</body>
+</html>
